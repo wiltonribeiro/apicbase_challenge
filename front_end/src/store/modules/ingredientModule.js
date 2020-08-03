@@ -111,7 +111,7 @@ const actions = {
                 console.log(error);
                 context.commit('updateState', { error: error, loading: false });
             });
-    },
+    }
 };
 
 const getters = {
