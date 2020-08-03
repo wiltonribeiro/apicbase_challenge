@@ -1,17 +1,22 @@
-// eslint-disable-next-line no-unused-vars
-class RecipeItem {
-    constructor() {
-        this.id = 0;
-        this.ingredient = null;
-        this.quantity = 0;
+import Ingredient from "./Ingredient";
+
+export default class RecipeItem {
+    constructor(id, ingredient, quantity) {
+        this.id = id;
+        this.ingredient = ingredient;
+        this.quantity = quantity;
     }
 
     mapFromDoc(obj) {
-        const keys = Object.keys(this);
-        keys.forEach(prop => (this[prop] = obj[prop]));
+        this.id = obj.id;
+        this.quantity = obj.quantity;
+        this.ingredient = new Ingredient().mapFromDoc(obj.ingredient);
+        return this;
     }
 
     calculateCost() {
-        if (this.ingredient != null) return this.quantity.cost * this.quantity;
+        if (this.ingredient != null) {
+            return this.ingredient.cost * this.quantity;
+        }
     }
 }

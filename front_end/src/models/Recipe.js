@@ -1,20 +1,26 @@
-// eslint-disable-next-line no-unused-vars
-class Recipe {
-    constructor() {
-        this.id = 0;
-        this.name = '';
-        this.ingredientItems = [];
-        this.originCountry = '';
+import RecipeItem from './RecipeItem';
+
+export default class Recipe {
+    constructor(id, name, originCountry, recipeItems) {
+        this.id = id;
+        this.name = name;
+        this.recipeItems = recipeItems;
+        this.originCountry = originCountry;
     }
 
     mapFromDoc(obj) {
-        const keys = Object.keys(this);
-        keys.forEach(prop => (this[prop] = obj[prop]));
+        this.id = obj.id;
+        this.name = obj.name;
+        this.originCountry = obj.originCountry;
+        this.recipeItems = obj.recipeItems.map(item =>
+            new RecipeItem().mapFromDoc(item)
+        );
+        return this;
     }
 
     calculateTotalCost() {
-        return this.ingredientItems.reduce(
-            (acumulador, item) => acumulador + item.calculateCost,
+        return this.recipeItems.reduce(
+            (acumulador, item) => acumulador + item.calculateCost(),
             0
         );
     }

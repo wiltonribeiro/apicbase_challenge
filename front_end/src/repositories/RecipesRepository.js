@@ -1,12 +1,13 @@
 import Repository from './Repository';
-import mock from '../mocks/recipesMock';
 
 const resource = '/recipes';
 
 export default {
     getAll() {
         // return Repository.get(`${resource}`);
-        return new Promise(resolve => setTimeout(() => resolve(mock), 2500));
+        return new Promise(resolve =>
+            setTimeout(() => resolve({ data: [] }), 2500)
+        );
     },
 
     get(id) {
@@ -14,14 +15,25 @@ export default {
     },
 
     create(payload) {
-        return Repository.post(`${resource}/`, payload);
+        // return Repository.post(`${resource}/`, payload);
+        // return Repository.get(`${resource}`);
+        payload.id = new Date().valueOf();
+        return new Promise(resolve =>
+            setTimeout(() => resolve({ data: payload }), 2500)
+        );
     },
 
     update(id, payload) {
-        return Repository.put(`${resource}/${id}`, payload);
+        // return Repository.put(`${resource}/${id}`, payload);
+        return new Promise(resolve =>
+            setTimeout(() => resolve({ data: payload }), 2500)
+        );
     },
 
     delete(id) {
-        return Repository.delete(`${resource}/${id}`);
+        // return Repository.delete(`${resource}/${id}`);
+        return new Promise(resolve =>
+            setTimeout(() => resolve({ data: id }), 2500)
+        );
     }
 };

@@ -1,4 +1,5 @@
 import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+import Recipe from '../../models/Recipe';
 const recipesRepository = RepositoryFactory.get('recipe');
 
 const state = {
@@ -14,6 +15,9 @@ const mutations = {
     setLoading: (state, payload) => {
         state.loading = payload;
     },
+    setRecipes: (state, payload) => {
+        state.recipes = payload;
+    },
     updateState(state, obj) {
         const keys = Object.keys(obj);
         keys.forEach(key => (state[key] = obj[key]));
@@ -27,10 +31,67 @@ const actions = {
         recipesRepository
             .getAll()
             .then(res => {
+                let recipes = res.data.map(item =>
+                    new Recipe().mapFromDoc(item)
+                );
+
                 context.commit('updateState', {
-                    recipes: res,
+                    recipes: recipes,
                     loading: false
                 });
+            })
+            .catch(error => {
+                console.log(error);
+                context.commit('updateState', { error: error, loading: false });
+            });
+    },
+    create: function(context, recipe) {
+        context.commit('setLoading', true);
+
+        recipesRepository
+            .create(recipe)
+            .then(res => {
+                let copyArray = [...context.state.recipes];
+                copyArray.unshift(res.data);
+
+                context.commit('setRecipes', copyArray);
+                context.commit('setLoading', false);
+            })
+            .catch(error => {
+                console.log(error);
+                context.commit('updateState', { error: error, loading: false });
+            });
+    },
+    update: function(context, recipe) {
+        context.commit('setLoading', true);
+
+        recipesRepository
+            .update(recipe)
+            .then(() => {
+                let copyArray = [...context.state.recipes];
+                let index = copyArray.findIndex(item => item.id === recipe.id);
+
+                copyArray[index] = recipe;
+                context.commit('setRecipes', copyArray);
+                context.commit('setLoading', false);
+            })
+            .catch(error => {
+                console.log(error);
+                context.commit('updateState', { error: error, loading: false });
+            });
+    },
+    delete: function(context, id) {
+        context.commit('setLoading', true);
+
+        recipesRepository
+            .delete(id)
+            .then(() => {
+                let copyArray = [...context.state.recipes];
+                let index = copyArray.findIndex(item => item.id === id);
+
+                copyArray.splice(index, 1);
+                context.commit('setRecipes', copyArray);
+                context.commit('setLoading', false);
             })
             .catch(error => {
                 console.log(error);

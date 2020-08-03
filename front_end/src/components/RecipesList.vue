@@ -1,12 +1,13 @@
 <template>
-    <div class="pl-8 pr-8 recipes">
+    <div class="pl-6 pr-6 recipes">
         <transition name="fade">
-            <v-progress-linear
-                rounded
-                color="primary"
-                indeterminate
-                v-show="statusRequest.loading"
-            ></v-progress-linear>
+            <div class="mb-4" v-show="statusRequest.loading">
+                <v-progress-linear
+                    rounded
+                    color="primary"
+                    indeterminate
+                ></v-progress-linear>
+            </div>
         </transition>
 
         <section
@@ -20,7 +21,9 @@
         </section>
 
         <section v-else-if="!notFound" class="recipes-list">
-            oi cheio
+            <div class="mb-8" v-for="(recipe, i) in recipes" :key="i">
+                <RecipeCard :recipe="recipe" />
+            </div>
         </section>
     </div>
 </template>
@@ -28,9 +31,13 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import notFoundImg from '../assets/not_found.png';
+import RecipeCard from './RecipeCard';
 
 export default {
     name: 'RecipesList',
+    components: {
+        RecipeCard
+    },
     data() {
         return {
             notFoundImg: notFoundImg
@@ -44,14 +51,16 @@ export default {
     computed: {
         ...mapGetters({
             statusRequest: 'recipe/getStatus',
-            recipes: 'recipe/getrecipes'
+            recipes: 'recipe/getRecipes'
         }),
         notFound() {
             return this.recipes == null || this.recipes.length == 0;
         }
     },
     created() {
-        this.fetchAll();
+        if (this.notFound && !this.statusRequest.loading) {
+            this.fetchAll();
+        }
     }
 };
 </script>
@@ -61,16 +70,6 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-
-    .fade-enter-active,
-    .fade-leave-active {
-        transition: opacity 0.25s ease-out;
-    }
-
-    .fade-enter,
-    .fade-leave-to {
-        opacity: 0;
-    }
 
     &__list {
         &--empty {
