@@ -15,14 +15,19 @@
                             </p>
                             <div class="d-flex mt-8">
                                 <v-btn
-                                    @click="goToCreatePage"
+                                    @click="goToIngredientCreationPage"
                                     rounded
                                     large
                                     color="primary"
                                 >
                                     Add a new ingredient
                                 </v-btn>
-                                <v-btn text large color="primary">
+                                <v-btn
+                                    @click="goToRecipeCreationPage"
+                                    text
+                                    large
+                                    color="primary"
+                                >
                                     or create a new recipe
                                 </v-btn>
                             </div>
@@ -90,9 +95,15 @@ export default {
         };
     },
     methods: {
-        goToCreatePage() {
+        goToIngredientCreationPage() {
             this.$router.push({
                 name: 'IngredientManagement',
+                params: { action: 'create' }
+            });
+        },
+        goToRecipeCreationPage() {
+            this.$router.push({
+                name: 'RecipeManagement',
                 params: { action: 'create' }
             });
         }
