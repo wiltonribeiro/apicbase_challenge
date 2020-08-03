@@ -14,7 +14,12 @@
                                 company
                             </p>
                             <div class="d-flex mt-8">
-                                <v-btn rounded large color="primary">
+                                <v-btn
+                                    @click="goToCreatePage"
+                                    rounded
+                                    large
+                                    color="primary"
+                                >
                                     Add a new ingredient
                                 </v-btn>
                                 <v-btn text large color="primary">
@@ -27,8 +32,11 @@
                         </v-col>
                     </v-row>
                 </div>
-                <div class="footer pa-8 text-caption primary--text">
-                    DEVELOPED BY <b>WILTON NETO</b>
+                <div
+                    class="footer d-flex justify-space-between pa-8 text-caption primary--text"
+                >
+                    <span>DEVELOPED BY <b>WILTON NETO</b></span>
+                    <span>FINISHED AT <b>AUGUST, 2020 - BRAZIL</b></span>
                 </div>
             </v-col>
             <v-col class="col-md-3 home__inventory">
@@ -80,6 +88,14 @@ export default {
                 }
             ]
         };
+    },
+    methods: {
+        goToCreatePage() {
+            this.$router.push({
+                name: 'IngredientManagement',
+                params: { action: 'create' }
+            });
+        }
     }
 };
 </script>

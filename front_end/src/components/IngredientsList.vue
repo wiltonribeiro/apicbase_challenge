@@ -1,12 +1,13 @@
 <template>
     <div class="pl-6 pr-6 ingredients">
         <transition name="fade">
-            <v-progress-linear
-                rounded
-                color="primary"
-                indeterminate
-                v-show="statusRequest.loading"
-            ></v-progress-linear>
+            <div class="mb-4" v-show="statusRequest.loading">
+                <v-progress-linear
+                    rounded
+                    color="primary"
+                    indeterminate
+                ></v-progress-linear>
+            </div>
         </transition>
 
         <section
@@ -61,7 +62,7 @@ export default {
         }
     },
     created() {
-        this.fetchAll();
+        if (this.notFound) this.fetchAll();
     }
 };
 </script>
@@ -71,16 +72,6 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-
-    .fade-enter-active,
-    .fade-leave-active {
-        transition: opacity 0.25s ease-out;
-    }
-
-    .fade-enter,
-    .fade-leave-to {
-        opacity: 0;
-    }
 
     &__list {
         &--empty {

@@ -1,21 +1,26 @@
 <template>
     <v-app>
         <v-main>
-            <router-view>
-                <home />
-            </router-view>
+            <router-view />
         </v-main>
     </v-app>
 </template>
 
 <script>
-import Home from './views/Home';
-
 export default {
-    name: 'App',
-
-    components: {
-        Home
-    }
+    name: 'App'
 };
 </script>
+
+<style lang="scss">
+// General scss
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.25s ease-out;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+</style>

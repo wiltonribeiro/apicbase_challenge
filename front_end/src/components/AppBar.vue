@@ -12,7 +12,7 @@
         ></v-autocomplete>
         <v-spacer></v-spacer>
 
-        <v-badge overlap color="#F6B643" dot>
+        <v-badge overlap color="primary" dot>
             <v-avatar color="grey" size="48">
                 <v-img
                     src="https://cdn.vuetifyjs.com/images/lists/1.jpg"

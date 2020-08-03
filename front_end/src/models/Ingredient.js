@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-vars
-class Ingredient {
-    constructor() {
-        this.id = 0;
-        this.name = '';
-        this.cost = 0.0;
-        this.unit = '';
-        this.description = '';
+export default class Ingredient {
+    constructor(id, name, cost, unit, description) {
+        this.id = id;
+        this.name = name;
+        this.cost = cost;
+        this.unit = unit;
+        this.description = description;
     }
 
     mapFromDoc(obj) {
