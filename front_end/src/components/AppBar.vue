@@ -1,21 +1,15 @@
 <template>
     <v-app-bar elevation="0" color="white pa-8" dense>
-        <v-autocomplete
-            class="mx-4 ml-0"
-            flat
-            rounded
-            hide-no-data
-            hide-details
-            label="Search"
-            prepend-inner-icon="mdi-magnify"
-            solo-inverted
-        ></v-autocomplete>
+        <img width="12%" :src="logo" />
+        <span class="font-weight-bold ml-6">
+            Frontend Developer Assignment 2020
+        </span>
         <v-spacer></v-spacer>
-
-        <v-badge overlap color="primary" dot>
+        <span class="font-weight-bold mr-6 primary--text">Wilton Neto</span>
+        <v-badge overlap color="secondary" dot>
             <v-avatar color="grey" size="48">
                 <v-img
-                    src="https://cdn.vuetifyjs.com/images/lists/1.jpg"
+                    src="https://instagram.fflb1-1.fna.fbcdn.net/v/t51.2885-19/s150x150/67665365_2450241365068089_3690825616912809984_n.jpg?_nc_ht=instagram.fflb1-1.fna.fbcdn.net&_nc_ohc=1Mr06IeSlv0AX94Kf5A&oh=763f446bbaf2178d2a370b88c98a5908&oe=5F51BFE4"
                 ></v-img>
             </v-avatar>
         </v-badge>
@@ -23,7 +17,14 @@
 </template>
 
 <script>
+import logo from '../assets/logo.svg';
+
 export default {
-    name: 'AppBar'
+    name: 'AppBar',
+    data() {
+        return {
+            logo
+        };
+    }
 };
 </script>
