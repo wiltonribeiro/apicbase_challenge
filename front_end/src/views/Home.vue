@@ -107,9 +107,6 @@ export default {
                 params: { action: 'create' }
             });
         }
-    },
-    mounted() {
-        console.log(this.$router);
     }
 };
 </script>
@@ -174,6 +171,10 @@ $light_blue: #e4eefd;
                     height: 100%;
                 }
             }
+        }
+
+        .v-icon:focus::after {
+            opacity: 0;
         }
     }
 }
