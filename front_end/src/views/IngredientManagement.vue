@@ -167,10 +167,6 @@ export default {
                 positive: value =>
                     value > 0 || 'Cost should be greater than zero'
             },
-            animation: {
-                clientX: 0,
-                clientY: 0
-            },
             units: ['grams', 'kilograms', 'centiliter', 'liter']
         };
     },
@@ -194,10 +190,6 @@ export default {
         clearForm: function() {
             this.$refs.form.reset();
         },
-        moveAnimation: function(e) {
-            this.animation.clientX = e.clientX / 40 + 'px';
-            this.animation.clientY = e.clientY / 40 + 'px';
-        },
         mapIngredientToFields: function() {
             this.form = { ...this.ingredient };
         },
@@ -215,7 +207,6 @@ export default {
         }
     },
     created() {
-        document.addEventListener('mousemove', this.moveAnimation);
         if (this.action === 'update') {
             this.mapIngredientToFields();
         }
