@@ -7,10 +7,10 @@
                     <v-row class="pa-8 mt-12">
                         <v-col class="about__content col-md-6">
                             <p class="text-h1 font-weight-black primary--text">
-                                Epicbase Challenge
+                                Apicbase Challenge
                             </p>
                             <p class="text-body-1">
-                                That's a challenge made with love to Epicbase
+                                That's a challenge made with love to Apicbase
                                 company
                             </p>
                             <div class="d-flex mt-8">
@@ -107,6 +107,9 @@ export default {
                 params: { action: 'create' }
             });
         }
+    },
+    mounted() {
+        console.log(this.$router);
     }
 };
 </script>
