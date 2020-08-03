@@ -119,21 +119,12 @@
                 <div class="management__actions"></div>
             </v-col>
             <v-col class="md-6 management__mockup">
-                <img
-                    :style="{
-                        marginLeft: animation.clientX,
-                        marginTop: animation.clientY
-                    }"
-                    :src="bgImage"
-                />
-                <IngredientCard
-                    :style="{
-                        marginLeft: animation.clientX,
-                        marginTop: animation.clientY
-                    }"
-                    :ingredient="form"
-                    mockup
-                />
+                <CursorTracker :speed="20" top="50%" left="50%" width="100%">
+                    <img :src="bgImage" />
+                </CursorTracker>
+                <CursorTracker :speed="40" top="50%" left="65%" width="80%">
+                    <IngredientCard :ingredient="form" mockup />
+                </CursorTracker>
             </v-col>
         </v-row>
     </div>
@@ -142,6 +133,7 @@
 <script>
 import bgImage from '../assets/test.png';
 import IngredientCard from '../components/IngredientCard';
+import CursorTracker from '../components/CursorTracker';
 import { mapActions } from 'vuex';
 
 export default {
@@ -156,7 +148,8 @@ export default {
         }
     },
     components: {
-        IngredientCard
+        IngredientCard,
+        CursorTracker
     },
     data() {
         return {
@@ -258,20 +251,8 @@ $light_blue: #e4eefd;
     &__mockup {
         position: relative;
 
-        .ingredient-card {
-            top: 45%;
-            left: 50%;
-            width: 80%;
-            position: absolute;
-            transform: translate(-45%, -50%);
-        }
-
         img {
-            top: 50%;
-            left: 50%;
             max-width: 100%;
-            position: absolute;
-            transform: translate(-50%, -50%);
         }
     }
 }
