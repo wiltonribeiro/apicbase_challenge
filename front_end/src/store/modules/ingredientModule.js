@@ -31,8 +31,12 @@ const actions = {
         ingredientsRepository
             .getAll()
             .then(res => {
+                let ingredients = res.data.map(item =>
+                    new Ingredient().mapFromDoc(item)
+                );
+
                 context.commit('updateState', {
-                    ingredients: res.data,
+                    ingredients: ingredients,
                     loading: false
                 });
             })

@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 export default class Ingredient {
     constructor(id, name, cost, unit, description) {
         this.id = id;
@@ -11,5 +10,6 @@ export default class Ingredient {
     mapFromDoc(obj) {
         const keys = Object.keys(this);
         keys.forEach(prop => (this[prop] = obj[prop]));
+        return this;
     }
 }

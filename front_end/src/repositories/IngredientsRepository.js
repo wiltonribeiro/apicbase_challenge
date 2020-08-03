@@ -18,7 +18,7 @@ export default {
     create(payload) {
         // return Repository.post(`${resource}/`, payload);
         // return Repository.get(`${resource}`);
-        payload.id = 12;
+        payload.id = new Date().valueOf();
         return new Promise(resolve =>
             setTimeout(() => resolve({ data: payload }), 2500)
         );

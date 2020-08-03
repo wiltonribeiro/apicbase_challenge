@@ -62,7 +62,9 @@ export default {
         }
     },
     created() {
-        if (this.notFound) this.fetchAll();
+        if (this.notFound && !this.statusRequest.loading) {
+            this.fetchAll();
+        }
     }
 };
 </script>
