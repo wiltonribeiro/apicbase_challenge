@@ -11,6 +11,12 @@ from app.models import Recipe
 from app.serializers import RecipeSerializer
 
 # Create your views here.
+@api_view(['GET'])
+def welcome(request):
+    return JsonResponse('This is a django rest api made with love to the apicbase challenge', safe=False)
+
+
+# Create your views here.
 @api_view(['GET', 'POST'])
 def ingredient_list(request):
     if request.method == 'GET':
