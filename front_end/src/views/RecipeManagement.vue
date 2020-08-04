@@ -45,7 +45,7 @@
                             <v-col class="col-6">
                                 <v-text-field
                                     :rules="[rules.required]"
-                                    v-model="form.originCountry"
+                                    v-model="form.origin_country"
                                     placeholder="e.g. Netherlands"
                                     color="secondary"
                                     label="Origin's country"
@@ -83,11 +83,11 @@
                                             {{ getIngredientQuantity(item.id) }}
                                         </span>
                                         <v-btn
-                                            @click="decreaseIngredientFromRecipe( item.id )"
                                             color="primary"
                                             text
                                             small
                                             class="ml-2"
+                                            @click="decreaseIngredientFromRecipe( item.id )"
                                             :disabled="getIngredientQuantity(item.id) === 0"
                                         >
                                             <v-icon>mdi-minus</v-icon>
@@ -181,9 +181,9 @@ export default {
             form: {
                 id: null,
                 name: '',
-                originCountry: ''
+                origin_country: ''
             },
-            recipeItems: [],
+            items: [],
             rules: {
                 required: value => !!value || 'This field is required'
             },
@@ -224,8 +224,8 @@ export default {
             return new Recipe(
                 this.form.id,
                 this.form.name,
-                this.form.originCountry,
-                this.recipeItems
+                this.form.origin_country,
+                this.items
             );
         }
     },
@@ -239,11 +239,11 @@ export default {
         clearForm: function() {
             this.$refs.form.$children[0].reset();
             this.$refs.form.$children[1].reset();
-            this.recipeItems = [];
+            this.items = [];
         },
         mapRecipeToFields: function() {
             this.form = { ...this.recipe };
-            this.recipeItems = this.recipe.recipeItems;
+            this.items = this.recipe.items;
         },
         getIngredientQuantity(id) {
             let recipeItem = this.getRecipeItemByIngredientId(id);
@@ -253,7 +253,7 @@ export default {
             return 0;
         },
         getRecipeItemByIngredientId(id) {
-            return this.recipeItems.find(
+            return this.items.find(
                 ({ ingredient }) => ingredient.id == id
             );
         },
@@ -261,7 +261,7 @@ export default {
             let recipeItem = null;
             if (this.getIngredientQuantity(ingredient.id) === 0) {
                 recipeItem = new RecipeItem(null, ingredient, 1);
-                this.recipeItems.push(recipeItem);
+                this.items.push(recipeItem);
             } else {
                 recipeItem = this.getRecipeItemByIngredientId(ingredient.id);
                 recipeItem.quantity = recipeItem.quantity + 1;
@@ -271,10 +271,10 @@ export default {
             let quantity = this.getIngredientQuantity(id);
             if (quantity === 1) {
                 // Case when the RecipeItem needs to be removed from array
-                let index = this.recipeItems.findIndex(
+                let index = this.items.findIndex(
                     ({ ingredient }) => ingredient.id == id
                 );
-                this.recipeItems.splice(index, 1);
+                this.items.splice(index, 1);
             } else if (quantity > 1) {
                 // Case when the RecipeItem needs to be just decreased
                 let recipeItem = this.getRecipeItemByIngredientId(id);

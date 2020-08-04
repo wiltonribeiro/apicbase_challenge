@@ -52,7 +52,7 @@ const actions = {
             .create(recipe)
             .then(res => {
                 let copyArray = [...context.state.recipes];
-                copyArray.unshift(res.data);
+                copyArray.unshift(new Recipe().mapFromDoc(res.data));
 
                 context.commit('setRecipes', copyArray);
                 context.commit('setLoading', false);
@@ -66,12 +66,12 @@ const actions = {
         context.commit('setLoading', true);
 
         recipesRepository
-            .update(recipe)
-            .then(() => {
+            .update(recipe.id)
+            .then((res) => {
                 let copyArray = [...context.state.recipes];
                 let index = copyArray.findIndex(item => item.id === recipe.id);
 
-                copyArray[index] = recipe;
+                copyArray[index] = new Recipe().mapFromDoc(res.data);
                 context.commit('setRecipes', copyArray);
                 context.commit('setLoading', false);
             })

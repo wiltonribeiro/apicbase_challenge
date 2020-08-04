@@ -82,7 +82,7 @@ const actions = {
         );
 
         ingredientsRepository
-            .update(ingredient)
+            .update(ingredient.id, ingredient)
             .then(() => {
                 let copyArray = [...context.state.ingredients];
                 let index = copyArray.findIndex(

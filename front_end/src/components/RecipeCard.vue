@@ -12,25 +12,25 @@
                 <span v-else>{{ recipe.name }}</span>
             </p>
             <p class="text-caption font-weight-medium">
-                <span v-if="mockup && isAttributeEmpty(recipe.originCountry)">
+                <span v-if="mockup && isAttributeEmpty(recipe.origin_country)">
                     Country of origin
                 </span>
                 <span class="text-capitalize" v-else
-                    >Origin : {{ recipe.originCountry }}
+                    >Origin : {{ recipe.origin_country }}
                 </span>
             </p>
 
             <div v-show="hover || mockup" class="mt-2 mb-2">
                 <div
                     class="d-flex justify-space-between text-caption"
-                    v-for="(recipeItem, i) in recipe.recipeItems"
+                    v-for="(item, i) in recipe.items"
                     :key="i"
                 >
                     <span>
-                        {{ recipeItem.quantity }} x - {{ recipeItem.ingredient.name }}
+                        {{ item.quantity }} x - {{ item.ingredient.name }}
                     </span>
                     <span class="font-weight-bold secondary--text">
-                        € {{ parseFloat(recipeItem.calculateCost()).toFixed(2) }}
+                        € {{ parseFloat(item.calculateCost()).toFixed(2) }}
                     </span>
                 </div>
             </div>

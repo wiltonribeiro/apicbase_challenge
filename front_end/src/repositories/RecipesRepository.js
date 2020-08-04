@@ -4,10 +4,7 @@ const resource = '/recipes';
 
 export default {
     getAll() {
-        // return Repository.get(`${resource}`);
-        return new Promise(resolve =>
-            setTimeout(() => resolve({ data: [] }), 2500)
-        );
+        return Repository.get(`${resource}`);
     },
 
     get(id) {
@@ -15,25 +12,14 @@ export default {
     },
 
     create(payload) {
-        // return Repository.post(`${resource}/`, payload);
-        // return Repository.get(`${resource}`);
-        payload.id = new Date().valueOf();
-        return new Promise(resolve =>
-            setTimeout(() => resolve({ data: payload }), 2500)
-        );
+        return Repository.post(`${resource}/`, payload);
     },
 
     update(id, payload) {
-        // return Repository.put(`${resource}/${id}`, payload);
-        return new Promise(resolve =>
-            setTimeout(() => resolve({ data: payload }), 2500)
-        );
+        return Repository.put(`${resource}/${id}`, payload);
     },
 
     delete(id) {
-        // return Repository.delete(`${resource}/${id}`);
-        return new Promise(resolve =>
-            setTimeout(() => resolve({ data: id }), 2500)
-        );
+        return Repository.delete(`${resource}/${id}`);
     }
 };

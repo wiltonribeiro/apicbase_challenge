@@ -12,11 +12,7 @@
             placeholder="Serach by id or name"
             class="search-bar__input text-body-2 white--text"
         />
-        <v-icon
-            @click="activated = !activated"
-            class="search-bar__icon"
-            color="white"
-        >
+        <v-icon @click="collapseSearch" class="search-bar__icon" color="white">
             {{ activated ? 'mdi-close' : 'mdi-magnify' }}
         </v-icon>
     </div>
@@ -46,6 +42,11 @@ export default {
                 });
             }
             this.$emit('filtered-items', filteredItems);
+        },
+        collapseSearch() {
+            this.activated = !this.activated;
+            this.input = '';
+            this.filterItems();
         }
     },
     created() {

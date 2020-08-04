@@ -1,7 +1,7 @@
 <template>
-    <div class="pl-6 pr-6 recipes">
+    <div class="recipes">
         <transition name="fade">
-            <div class="mb-4" v-show="statusRequest.loading">
+            <div class="mb-4  pl-6 pr-6" v-show="statusRequest.loading">
                 <v-progress-linear
                     rounded
                     color="primary"
@@ -10,8 +10,14 @@
             </div>
         </transition>
 
+        <SearchBar
+            v-if="!notFound && !statusRequest.loading"
+            :items="recipes"
+            @filtered-items="items => (filteredRecipes = items)"
+        />
+
         <section
-            class="recipes__list--empty"
+            class="recipes__list--empty  pl-6 pr-6"
             v-if="!statusRequest.loading && notFound"
         >
             <img :src="notFoundImg" />
@@ -20,8 +26,8 @@
             </p>
         </section>
 
-        <section v-else-if="!notFound" class="recipes-list">
-            <div class="mb-8" v-for="(recipe, i) in recipes" :key="i">
+        <section v-else-if="!notFound" class="recipes-list  pl-6 pr-6">
+            <div class="mb-8" v-for="(recipe, i) in filteredRecipes" :key="i">
                 <RecipeCard :recipe="recipe" />
             </div>
         </section>
@@ -32,15 +38,18 @@
 import { mapGetters, mapActions } from 'vuex';
 import notFoundImg from '../assets/not_found.png';
 import RecipeCard from './RecipeCard';
+import SearchBar from '../components/SearchBar';
 
 export default {
     name: 'RecipesList',
     components: {
-        RecipeCard
+        RecipeCard,
+        SearchBar
     },
     data() {
         return {
-            notFoundImg: notFoundImg
+            notFoundImg: notFoundImg,
+            filteredRecipes: []
         };
     },
     methods: {
@@ -60,6 +69,11 @@ export default {
     created() {
         if (this.notFound && !this.statusRequest.loading) {
             this.fetchAll();
+        }
+    },
+    watch: {
+        recipes: function(value) {
+            this.filteredRecipes = value;
         }
     }
 };

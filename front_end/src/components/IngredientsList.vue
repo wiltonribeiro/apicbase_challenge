@@ -1,7 +1,7 @@
 <template>
-    <div class="pl-6 pr-6 ingredients">
+    <div class="ingredients">
         <transition name="fade">
-            <div class="mb-4" v-show="statusRequest.loading">
+            <div class="mb-4 pl-6 pr-6" v-show="statusRequest.loading">
                 <v-progress-linear
                     rounded
                     color="primary"
@@ -10,8 +10,14 @@
             </div>
         </transition>
 
+        <SearchBar
+            v-if="!notFound && !statusRequest.loading"
+            :items="ingredients"
+            @filtered-items="items => (filteredIngredients = items)"
+        />
+
         <section
-            class="ingredients__list--empty"
+            class="ingredients__list--empty pl-6 pr-6"
             v-if="!statusRequest.loading && notFound"
         >
             <img :src="notFoundImg" />
@@ -20,10 +26,10 @@
             </p>
         </section>
 
-        <section v-else-if="!notFound" class="ingredients-list">
+        <section v-else-if="!notFound" class="ingredients-list pl-6 pr-6">
             <div
                 class="mb-8"
-                v-for="ingredient in ingredients"
+                v-for="ingredient in filteredIngredients"
                 :key="ingredient.id"
             >
                 <IngredientCard :ingredient="ingredient" />
@@ -36,15 +42,18 @@
 import { mapGetters, mapActions } from 'vuex';
 import notFoundImg from '../assets/not_found.png';
 import IngredientCard from './IngredientCard';
+import SearchBar from '../components/SearchBar';
 
 export default {
     name: 'IngredientsList',
     components: {
-        IngredientCard
+        IngredientCard,
+        SearchBar
     },
     data() {
         return {
-            notFoundImg: notFoundImg
+            notFoundImg: notFoundImg,
+            filteredIngredients: []
         };
     },
     methods: {
@@ -64,6 +73,11 @@ export default {
     created() {
         if (this.notFound && !this.statusRequest.loading) {
             this.fetchAll();
+        }
+    },
+    watch: {
+        ingredients: function(value) {
+            this.filteredIngredients = value;
         }
     }
 };
