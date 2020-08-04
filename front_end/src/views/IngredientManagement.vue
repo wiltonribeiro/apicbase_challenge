@@ -1,6 +1,6 @@
 <template>
     <div class="management">
-        <v-row no-gutters class="pa-8 management__back">
+        <v-row no-gutters class="pa-6 pa-lg-8 management__back">
             <v-col class="col-12 primary--text">
                 <v-btn @click="() => $router.back()" class="primary--text" text>
                     <v-icon class="mr-4">mdi-arrow-left</v-icon>
@@ -8,8 +8,8 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <v-row class="pa-8">
-            <v-col class="management__content md-6 pa-8">
+        <v-row class="pa-6 pa-lg-8">
+            <v-col class="management__content md-6 pa-6 pa-lg-8">
                 <div class="management__header">
                     <div v-if="action === 'create'">
                         <p class="text-h3 font-weight-medium">
@@ -75,39 +75,39 @@
                                     </template>
                                 </v-textarea>
                             </v-col>
-                            <v-col class="d-flex col-12 white--text">
-                                <div v-if="action === 'create'">
-                                    <v-btn
-                                        color="primary"
-                                        :disabled="!valid"
-                                        @click="createIngredient"
-                                    >
-                                        Create ingredient
-                                    </v-btn>
-                                </div>
-                                <div v-else>
-                                    <v-btn
-                                        color="primary"
-                                        :disabled="!valid"
-                                        @click="updateIngredient"
-                                    >
-                                        Update ingredient
-                                    </v-btn>
-
-                                    <v-btn
-                                        text
-                                        class="ml-4"
-                                        color="error"
-                                        @click="deleteIngredient"
-                                    >
-                                        Delete
-                                    </v-btn>
-                                </div>
+                            <v-col class="d-flex flex-column flex-sm-row col-12 white--text">
+                                <v-btn
+                                    class="mt-2 mt-lg-0"
+                                    v-if="action === 'create'"
+                                    color="primary"
+                                    :disabled="!valid"
+                                    @click="createIngredient"
+                                >
+                                    Create ingredient
+                                </v-btn>
+                                <v-btn
+                                    class="mt-2 mt-lg-0"
+                                    v-if="action === 'update'"
+                                    color="primary"
+                                    :disabled="!valid"
+                                    @click="updateIngredient"
+                                >
+                                    Update ingredient
+                                </v-btn>
+                                <v-btn
+                                    v-if="action === 'update'"
+                                    text
+                                    class="ml-sm-4 mt-2 mt-lg-0"
+                                    color="error"
+                                    @click="deleteIngredient"
+                                >
+                                    Delete
+                                </v-btn>
                                 <v-btn
                                     @click="clearForm"
                                     :disabled="isEmpty"
                                     color="primary"
-                                    class="ml-4"
+                                    class="ml-sm-4 mt-2 mt-lg-0"
                                     text
                                 >
                                     Clear form
@@ -116,9 +116,8 @@
                         </v-row>
                     </v-form>
                 </div>
-                <div class="management__actions"></div>
             </v-col>
-            <v-col class="md-6 management__mockup">
+            <v-col class="d-none d-lg-inline md-6 management__mockup">
                 <CursorTracker :speed="20" top="50%" left="50%" width="100%">
                     <img :src="bgImage" />
                 </CursorTracker>

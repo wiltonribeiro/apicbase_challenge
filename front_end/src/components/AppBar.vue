@@ -1,11 +1,11 @@
 <template>
     <v-app-bar elevation="0" color="white pa-8" dense>
-        <img width="12%" :src="logo" />
-        <span class="font-weight-bold ml-6">
+        <img width="120px" :src="logo" />
+        <span class="font-weight-bold ml-6 d-none d-lg-inline">
             Frontend Developer Assignment 2020
         </span>
         <v-spacer></v-spacer>
-        <span class="font-weight-bold mr-6 primary--text">Wilton Neto</span>
+        <span class="d-none d-lg-inline font-weight-bold mr-6 primary--text">Wilton Neto</span>
         <v-badge overlap color="secondary" dot>
             <v-avatar color="grey" size="48">
                 <v-img

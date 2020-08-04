@@ -1,19 +1,19 @@
 <template>
     <div class="home">
         <v-row no-gutters>
-            <v-col class="col-md-9 home__welcome">
+            <v-col class="col-lg-9 col-12 home__welcome">
                 <app-bar class="app-bar" />
                 <div class="about">
-                    <v-row class="pa-8 mt-12">
-                        <v-col class="about__content col-md-6">
-                            <p class="text-h1 font-weight-black primary--text">
+                    <v-row class="mt-0 mt-lg-12 pa-6 pa-lg-8 d-flex flex-column-reverse flex-sm-row">
+                        <v-col class="about__content col-12 col-sm-6">
+                            <p class="text-md-h1 text-h4 font-weight-black primary--text">
                                 Apicbase Challenge
                             </p>
                             <p class="text-body-1">
                                 That's a challenge made with love to Apicbase
                                 company
                             </p>
-                            <div class="d-flex mt-8">
+                            <div class="d-flex mt-8 flex-column flex-lg-row">
                                 <v-btn
                                     @click="goToIngredientCreationPage"
                                     rounded
@@ -32,7 +32,7 @@
                                 </v-btn>
                             </div>
                         </v-col>
-                        <v-col class="about__image col-md-6">
+                        <v-col class="about__image col-12 col-sm-6">
                             <img :src="img" />
                         </v-col>
                     </v-row>
@@ -41,10 +41,10 @@
                     class="footer d-flex justify-space-between pa-8 text-caption primary--text"
                 >
                     <span>DEVELOPED BY <b>WILTON NETO</b></span>
-                    <span>FINISHED AT <b>AUGUST, 2020 - BRAZIL</b></span>
+                    <span class="d-none d-sm-inline">FINISHED AT <b>AUGUST, 2020 - BRAZIL</b></span>
                 </div>
             </v-col>
-            <v-col class="col-md-3 home__inventory">
+            <v-col class="col-lg-3 col-12 home__inventory">
                 <v-tabs
                     v-model="tab"
                     class="pt-8 pa-4"
@@ -122,21 +122,40 @@ $light_blue: #e4eefd;
     }
 
     &__welcome {
-        height: 100%;
         display: flex;
         flex-direction: column;
         background-color: white;
+        height: 100vh;
+
+        @media (min-width: 1440px) {
+            height: 100%;
+        }
 
         .about {
             flex: 1;
             display: flex;
             align-items: center;
 
+            & > .row {
+                margin: 0;
+                @media (min-width: 1440px) {
+                    margin: unset;
+                }
+            }
+
             &__image {
-                text-align: center;
+                text-align: left;
+
+                @media (min-width: 1440px) {
+                    text-align: center;
+                }
+
                 img {
                     margin-top: 10%;
-                    width: 100%;
+                    width: 50%;
+                    @media (min-width: 768px) {
+                        width: 100%;
+                    }
                 }
             }
         }

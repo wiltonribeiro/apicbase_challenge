@@ -20,7 +20,7 @@
                 </span>
             </p>
 
-            <div v-show="hover || mockup" class="mt-2 mb-2">
+            <div v-show="hover || mockup || !isDesktop" class="mt-2 mb-2">
                 <div
                     class="d-flex justify-space-between text-caption"
                     v-for="(item, i) in recipe.items"
@@ -83,6 +83,11 @@ export default {
                 params: { action: 'update', recipe }
             });
         }
+    },
+    computed: {
+        isDesktop() {
+             return this.$vuetify.breakpoint.lg;
+        }
     }
 };
 </script>
@@ -110,7 +115,7 @@ export default {
     &__edit-msg {
         right: 0;
         bottom: 0;
-        width: 15%;
+        width: 50px;
         overflow: hidden;
         padding: 10px 15px;
         position: absolute;

@@ -20,7 +20,7 @@
                 </span>
             </p>
 
-            <p v-show="hover || mockup" class="text-caption">
+            <p v-show="hover || mockup || !isDesktop" class="text-caption">
                 {{ ingredient.description }}
             </p>
 
@@ -69,6 +69,11 @@ export default {
                 params: { action: 'update', ingredient }
             });
         }
+    },
+    computed: {
+        isDesktop() {
+             return this.$vuetify.breakpoint.lg;
+        }
     }
 };
 </script>
@@ -96,7 +101,7 @@ export default {
     &__edit-msg {
         right: 0;
         bottom: 0;
-        width: 15%;
+        width: 50px;
         overflow: hidden;
         padding: 10px 15px;
         position: absolute;
