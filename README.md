@@ -1,7 +1,6 @@
 ### Apicbase Challenge
 
 #### Frontend Vue(One Page Application)
-The frontend application is hosted in Firebase by link (https://apicbase-challenge.web.app/).
 
 ##### How to install
 After clone the repository go to front_end directory and run the `npm i install` command to download all required dependencies.
@@ -52,7 +51,6 @@ Observation: Each SCSS style applied to a component or page was written in the r
 Observation2: In order to show at least most of the power of vue js, in this project was used: props (declared in all possible different ways among the components), $emit, slots, dynamic components with component tag, deep watch, transitions and so on.
 
 ### Backend Django(REST API)
-The Backend application is hosted in Heroku by link (https://apicbasechallenge.herokuapp.com/) 
 The chosen database for this project was Postgres, which is also hosted in Heroku. 
 
 ##### How to install
