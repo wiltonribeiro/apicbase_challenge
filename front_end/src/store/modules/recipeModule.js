@@ -66,7 +66,7 @@ const actions = {
         context.commit('setLoading', true);
 
         recipesRepository
-            .update(recipe.id)
+            .update(recipe.id, recipe)
             .then((res) => {
                 let copyArray = [...context.state.recipes];
                 let index = copyArray.findIndex(item => item.id === recipe.id);
