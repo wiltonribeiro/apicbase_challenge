@@ -87,9 +87,9 @@ def recipe(request, pk):
         recipe_serializer = RecipeSerializer(recipe, data=recipe_data) 
         if recipe_serializer.is_valid(): 
             recipe.items.clear()
-            recipe.delete()
             recipe_serializer.save() 
             return JsonResponse(recipe_serializer.data) 
+        
         return JsonResponse(recipe_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE': 

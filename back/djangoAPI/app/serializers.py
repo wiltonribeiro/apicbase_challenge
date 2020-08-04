@@ -49,10 +49,9 @@ class RecipeSerializer(serializers.ModelSerializer):
                   'items')
 
     def create(self, validated_data):
-        items = validated_data.pop("items")
+        items = validated_data.pop("items", [])
         instance = Recipe.objects.create(**validated_data)
 
-        recipe_items = []
         for item in items:
             qtd = item['quantity']
             ingredient_id = item['ingredient']['id']
@@ -63,4 +62,20 @@ class RecipeSerializer(serializers.ModelSerializer):
             
             instance.items.add(recipe_item)
 
-        return Recipe.objects.get(pk=instance.pk)
+        return instance
+
+    def update(self, instance, validated_data):
+        items = validated_data.pop("items", [])
+        instance = super(RecipeSerializer,self).update(instance, validated_data)
+    
+        for item in items:
+            qtd = item['quantity']
+            ingredient_id = item['ingredient']['id']
+            ingredient = Ingredient.objects.get(pk=ingredient_id)
+
+            recipe_item = RecipeItem(ingredient=ingredient, quantity=qtd)
+            recipe_item.save()
+            
+            instance.items.add(recipe_item)
+
+        return instance
