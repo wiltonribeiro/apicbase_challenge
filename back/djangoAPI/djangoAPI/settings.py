@@ -25,7 +25,7 @@ SECRET_KEY = 'edfw0lvy37np-g)xi1*z-_h=c*)v%h6)l$0je(!o71n!fq9fh8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'apicbasechallenge.herokuapp.com']
 
 
 # Application definition
