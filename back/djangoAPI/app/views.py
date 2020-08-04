@@ -14,7 +14,7 @@ from app.serializers import RecipeSerializer
 @api_view(['GET', 'POST'])
 def ingredient_list(request):
     if request.method == 'GET':
-        ingredients = Ingredient.objects.all()        
+        ingredients = Ingredient.objects.order_by('pk').all()        
         ingredient_serializer = IngredientSerializer(ingredients, many=True)
         return JsonResponse(ingredient_serializer.data, safe=False)
     
@@ -53,7 +53,7 @@ def ingredient(request, pk):
 @api_view(['GET', 'POST'])
 def recipe_list(request):
     if request.method == 'GET':
-        recipes = Recipe.objects.all()        
+        recipes = Recipe.objects.order_by('pk').all()        
         recipe_serializer = RecipeSerializer(recipes, many=True)
         return JsonResponse(recipe_serializer.data, safe=False)
 
@@ -80,11 +80,14 @@ def recipe(request, pk):
         recipe_data = JSONParser().parse(request) 
         recipe_serializer = RecipeSerializer(recipe, data=recipe_data) 
         if recipe_serializer.is_valid(): 
+            recipe.items.clear()
+            recipe.delete()
             recipe_serializer.save() 
             return JsonResponse(recipe_serializer.data) 
         return JsonResponse(recipe_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE': 
-        recipe.delete() 
+        recipe.items.clear()
+        recipe.delete()
         return JsonResponse({'message': 'Recipe was deleted successfully!'}, status=status.HTTP_200_OK)
 
